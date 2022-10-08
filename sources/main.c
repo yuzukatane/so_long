@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kyuzu <kyuzu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/07 21:54:30 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/08 14:45:55 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void make_background(t_data *data)
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, back.mlx_img, 0, 0);
 }
 
-int	main(void)
+int	make_window(void)
 {
 	t_data	data;
 	char	*relative_path = "./image.xpm";
@@ -198,3 +198,11 @@ int	main(void)
 	return (0);
 }
 
+int	main(int argc, char *argv[])
+{
+	if (argc != 2)
+	{
+		return (0);
+	}
+	creat_map(argv[1]);
+}
