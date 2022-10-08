@@ -1,0 +1,6 @@
+.vscode
+*.txt
+*.o
+.DS_Store
+so_long
+*.dylib
