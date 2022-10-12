@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyuzu <kyuzu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/08 14:45:55 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/12 21:53:13 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ int	make_window(void)
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
+	//×ボタンで閉じるようにするの忘れない
 
 	mlx_loop(data.mlx_ptr);
 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
@@ -198,11 +199,12 @@ int	make_window(void)
 	return (0);
 }
 
+
 int	main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
 		return (0);
 	}
-	creat_map(argv[1]);
+	create_map(argv[1]);
 }
