@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/12 21:41:31 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/16 19:10:45 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,21 @@
 # define TRUE 1
 # define FALSE 0
 
-
 typedef enum e_free
 {
 	NOTHING,
 	MAP_PTR,
 	ARRAY
 }	t_free;
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
 typedef struct s_map
 {
@@ -47,6 +55,26 @@ typedef struct s_map
 	int		width;
 	int		start_pos[2];
 }	t_map;
+
+typedef struct s_data
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_img	img;
+	t_map	*map;
+	// int		cur_img;
+	int		x;
+	int		y;
+}	t_data;
+
+typedef struct s_rect
+{
+	int	x;
+	int	y;
+	int width;
+	int height;
+	int color;
+}	t_rect;
 
 typedef struct s_flag
 {
@@ -61,7 +89,7 @@ int		check_map(t_map *map);
 int	is_there_a_valid_path(t_map *map);
 
 void	free_double_ptr(char **double_ptr);
-void	free_and_exit(t_map *map, t_free free_flag);
+void	free_and_exit(t_map *map, t_free free_flag, char *msg);
 
 
 #endif

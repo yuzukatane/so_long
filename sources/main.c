@@ -6,47 +6,29 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/12 21:53:13 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/16 19:10:34 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
 
-#define WINDOW_WIDTH 1600
-#define WINDOW_HEIGHT 1300
+#define WINDOW_WIDTH 1366
+#define WINDOW_HEIGHT 768
 
-#define MLX_ERROR 1
 
 #define RED_PIXEL 0xFF0000
 #define GREEN_PIXEL 0x47885e
 #define WHITE_PIXEL 0xFFFFFF
+#define GRAY_PIXEL 0xcbd0d3
+#define YELLOW_PIXEL 0xe3e548
 
-typedef struct s_img
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_img;
-
-typedef struct s_data
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-	int		cur_img;
-}	t_data;
-
-typedef struct s_rect
-{
-	int	x;
-	int	y;
-	int width;
-	int height;
-	int color;
-}	t_rect;
+//
+#define D 100
+#define A 97
+#define W 119
+#define S 115
+//要確認
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
@@ -96,13 +78,23 @@ void	render_background(t_img *img)
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			if (j % 2 == 0)
-				img_pix_put(img, j++, i, WHITE_PIXEL);
-			else
-				img_pix_put(img, j++, i, GREEN_PIXEL);
+			img_pix_put(img, j++, i, GRAY_PIXEL);
 		}
-		++i;
+		i++;
 	}
+}
+
+
+int	render(t_data *data)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	render_background(&data->img);
+	render_rect(&data->img, (t_rect){data->x, data->y, 100, 100, YELLOW_PIXEL});
+
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+
+	return (0);
 }
 
 int	handle_keypress(int keysym, t_data *data)
@@ -112,26 +104,33 @@ int	handle_keypress(int keysym, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
 	}
-	return (0);
-}
-
-int	render(t_data *data)
-{
-	if (data->win_ptr == NULL)
-		return (1);
-	// render_background(&data->img, WHITE_PIXEL);
-	// render_rect(&data->img, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100, 100, 100, GREEN_PIXEL});
-	// render_rect(&data->img, (t_rect){0, 0, 100, 100, RED_PIXEL});
-
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
-
+	else if (keysym == D)
+	{
+		data->x += 100;
+		render(data);
+	}
+	else if (keysym == A)
+	{
+		data->x -= 100;
+		render(data);
+	}
+	else if (keysym == S)
+	{
+		data->y += 100;
+		render(data);
+	}
+	else if (keysym == W)
+	{
+		data->y -= 100;
+		render(data);
+	}
 	return (0);
 }
 
 // int	main(void)
 // {
 // 	t_data	data;
-
+//
 // 	data.mlx_ptr = mlx_init();
 // 	if (data.mlx_ptr == NULL)
 // 		return (MLX_ERROR);
@@ -141,70 +140,128 @@ int	render(t_data *data)
 // 		free(data.win_ptr);
 // 		return (MLX_ERROR);
 // 	}
-
+//
 // 	/* Setup hooks */ 
 // 	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 // 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 // 			&data.img.line_len, &data.img.endian);
-
+//
 // 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 // 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-
+//
 // 	mlx_loop(data.mlx_ptr);
-
+//
 // 	/* we will exit the loop if there's no window left, and execute this code */
 // 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
 // 	mlx_destroy_display(data.mlx_ptr);
 // 	free(data.mlx_ptr);
-	
+//
 // 	return (0);
 // }
 
-void make_background(t_data *data)
-{
-	t_img	back;
+// void make_background(t_data *data)
+// {
+// 	t_img	back;
+//
+// 	back.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+// 	back.addr = mlx_get_data_addr(back.mlx_img, &back.bpp,
+// 			&back.line_len, &back.endian);
+// 	render_background(&back);
+//
+// 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, back.mlx_img, 0, 0);
+// }
 
-	back.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	back.addr = mlx_get_data_addr(back.mlx_img, &back.bpp,
-			&back.line_len, &back.endian);
-	render_background(&back);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, back.mlx_img, 0, 0);
+// int	make_window(void)
+// {
+// 	t_data	data;
+// 	char	*relative_path = "./image.xpm";
+// 	int		img_width;
+// 	int		img_height;
+//
+// 	//init
+// 	data.mlx_ptr = mlx_init();
+// 	data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "so_long");
+//
+// 	make_background(&data);
+//
+// 	// //image
+// 	// data.img.mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, relative_path, &img_width, &img_height);
+// 	// data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.line_len, &data.img.endian);
+// 	// mlx_loop_hook(data.mlx_ptr, &render, &data);
+//
+// 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
+// 	//×ボタンで閉じるようにするの忘れない
+//
+// 	mlx_loop(data.mlx_ptr);
+// 	// mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
+// 	mlx_destroy_display(data.mlx_ptr);
+// 	free(data.mlx_ptr);
+// 	return (0);
+// }
+
+int	window(t_data *data)
+{
+	data->x = 0;//
+	data->y = 0;//
+	data->mlx_ptr = mlx_init();
+	if (data->mlx_ptr == NULL)
+		return (FALSE);
+	data->win_ptr = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "so_long");
+	if (data->win_ptr == NULL)
+	{
+		free(data->win_ptr);
+		return (FALSE);
+	}
+	data->img.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
+	mlx_loop_hook(data->mlx_ptr, &render, data);
+	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
+	
+	mlx_loop(data->mlx_ptr);
+	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
+	return (TRUE);
 }
 
-int	make_window(void)
-{
-	t_data	data;
-	char	*relative_path = "./image.xpm";
-	int		img_width;
-	int		img_height;
-
-	//init
-	data.mlx_ptr = mlx_init();
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "so_long");
-	
-	make_background(&data);
-	
-	//image
-	data.img.mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, relative_path, &img_width, &img_height);
-	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.line_len, &data.img.endian);
-	mlx_loop_hook(data.mlx_ptr, &render, &data);
-	
-	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-	//×ボタンで閉じるようにするの忘れない
-
-	mlx_loop(data.mlx_ptr);
-	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
-	return (0);
-}
-
+// void	window(void)
+// {
+// 	t_data data;
+//
+// 	// data.x = 0;//
+// 	// data.y = 0;//
+// 	// data.mlx_ptr = mlx_init();
+// 	// // if (data.mlx_ptr == NULL)
+// 	// // 	return (MLX_ERROR);		window（）を、void じゃなくてint にしないといけない
+// 	// data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "so_long");
+// 	// // if (data.win_ptr == NULL)
+// 	// // {
+// 	// // 	free(data.win_ptr);
+// 	// // 	return (MLX_ERROR);
+// 	// // }
+// 	// data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+// 	// data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.line_len, &data.img.endian);
+// 	// mlx_loop_hook(data.mlx_ptr, &render, &data);
+// 	// mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
+// 	// mlx_loop(data.mlx_ptr);
+// 	f(&data);
+// 	// mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
+// 	// mlx_destroy_display(data.mlx_ptr);
+// 	// free(data.mlx_ptr);
+// }
 
 int	main(int argc, char *argv[])
 {
+	t_data data;
 	if (argc != 2)
 	{
+		ft_printf("The program need a map\n");
 		return (0);
 	}
-	create_map(argv[1]);
+
+	data.map = create_map(argv[1]);
+	if (window(&data) == FALSE)
+		free_and_exit(data.map, ARRAY, "MLX error");
+	free_and_exit(data.map, ARRAY, NULL);
+	return (0);
 }

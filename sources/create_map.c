@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/12 22:11:16 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/16 18:09:27 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*read_map(t_map *map, int fd, char *filename)
 		if (size == -1)
 		{
 			free(one_line_map);
-			free_and_exit(map, MAP_PTR);
+			free_and_exit(map, MAP_PTR, "Failed to read the file");
 		}
 		one_line_map = ft_strjoin(one_line_map, buf);
 
@@ -45,13 +45,10 @@ int	check_fileformat(char *filename)
 
 	len = ft_strlen(filename);
 	if (len < 5 || ft_strncmp(&filename[len - 4], ".ber", 4) != 0)
-	{
-		ft_printf("File format is incorrect\n");
 		return (FALSE);
-	}
 	return (TRUE);
 }
-//map.ber
+
 t_map	*create_map(char *filename)
 {
 	t_map	*map;
@@ -59,26 +56,22 @@ t_map	*create_map(char *filename)
 	char	*one_line_map;
 
 	if (check_fileformat(filename) == FALSE)
-		return (FALSE);
+		free_and_exit(map, NOTHING, "File format is incorrect");
 	map = malloc(sizeof(t_map));
 	if (map == NULL)
-		free_and_exit(map, NOTHING);
-	
+		free_and_exit(map, NOTHING, "Failed to allocate memory");
 	fd = open(filename, O_RDONLY);
-
-	//There is no such file.	free_and_exit()でメッセージ送る？エラーの時のメッセージ出力がバラバラすぎ！
 	if (fd == -1)
-		free_and_exit(map, MAP_PTR);
+		free_and_exit(map, MAP_PTR, "Failed to open the file");
 	one_line_map = read_map(map, fd, filename);
-
 	map->array = ft_split(one_line_map, '\n');
 	free(one_line_map);
 	if (map->array == NULL)
-		free_and_exit(map, MAP_PTR);
+		free_and_exit(map, MAP_PTR, "Failed to allocate memory");
 
 	if (check_map(map) == FALSE)
-		free_and_exit(map, ARRAY);
-
+		free_and_exit(map, ARRAY, "Map is incorrect");
 	ft_printf("Map OK!\n");////消す
 	return (map);
 }
+

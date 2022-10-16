@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 21:40:55 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/12 21:42:01 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/15 16:31:27 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	move(t_map *map, char **cpy, int x, int y)
 {
 	int	nx;
 	int	ny;
+	int	flag;
 
 	if (x < 0 || map->width < x || y < 0
 		|| map->height < y || cpy[y][x] == WALL)
@@ -26,17 +27,35 @@ int	move(t_map *map, char **cpy, int x, int y)
 	nx = x;
 	ny = y - 1;
 	if (ny >= 0 && cpy[ny][nx] != WALL && cpy[ny][nx] != PASSED)
-		return (move(map, cpy, nx, ny));
+	{
+		flag = move(map, cpy, nx, ny);
+		if (flag == TRUE)
+			return (TRUE);
+	}
+	nx = x;
 	ny = y + 1;
 	if (ny <= map->height && cpy[ny][nx] != WALL && cpy[ny][nx] != PASSED)
-		return (move(map, cpy, nx, ny));
+	{
+		flag = move(map, cpy, nx, ny);
+		if (flag == TRUE)
+			return (TRUE);
+	}
 	nx = x - 1;
 	ny = y;
 	if (nx >= 0 && cpy[ny][nx] != WALL && cpy[ny][nx] != PASSED)
-		return (move(map, cpy, nx, ny));
+	{
+		flag = move(map, cpy, nx, ny);
+		if (flag == TRUE)
+			return (TRUE);
+	}
 	nx = x + 1;
+	ny = y;
 	if (nx <= map->width && cpy[ny][nx] != WALL && cpy[ny][nx] != PASSED)
-		return (move(map, cpy, nx, ny));
+	{
+		flag = move(map, cpy, nx, ny);
+		if (flag == TRUE)
+			return (TRUE);
+	}
 	return (FALSE);
 }
 
