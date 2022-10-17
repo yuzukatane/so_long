@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:42:08 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/16 18:09:54 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/17 13:57:28 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,11 @@ int	check_letters(t_map *map, t_flag *flag)
 				flag->start_flag++;
 			}
 			else if (map->array[y][x] == EXIT)
+			{
+				map->exit_pos[0] = x;
+				map->exit_pos[1] = y;
 				flag->exit_flag++;
+			}
 			else if (map->array[y][x] == COLLECTIBLE)
 				flag->collective_flag++;
 			else if (map->array[y][x] != WALL && map->array[y][x] != EMPTY)

@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/16 19:10:34 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/17 15:22:27 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	render(t_data *data)
 	if (data->win_ptr == NULL)
 		return (1);
 	render_background(&data->img);
-	render_rect(&data->img, (t_rect){data->x, data->y, 100, 100, YELLOW_PIXEL});
+	render_rect(&data->img, (t_rect){data->x, data->y, data->block_size_x, data->block_size_y, YELLOW_PIXEL});
 
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 
@@ -106,22 +106,22 @@ int	handle_keypress(int keysym, t_data *data)
 	}
 	else if (keysym == D)
 	{
-		data->x += 100;
+		data->x += data->block_size_x;
 		render(data);
 	}
 	else if (keysym == A)
 	{
-		data->x -= 100;
+		data->x -= data->block_size_x;
 		render(data);
 	}
 	else if (keysym == S)
 	{
-		data->y += 100;
+		data->y += data->block_size_y;
 		render(data);
 	}
 	else if (keysym == W)
 	{
-		data->y -= 100;
+		data->y -= data->block_size_y;
 		render(data);
 	}
 	return (0);
@@ -190,7 +190,6 @@ int	handle_keypress(int keysym, t_data *data)
 // 	// mlx_loop_hook(data.mlx_ptr, &render, &data);
 //
 // 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-// 	//×ボタンで閉じるようにするの忘れない
 //
 // 	mlx_loop(data.mlx_ptr);
 // 	// mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
@@ -199,10 +198,20 @@ int	handle_keypress(int keysym, t_data *data)
 // 	return (0);
 // }
 
+
+int	x_button(t_data *data)
+{
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	data->win_ptr = NULL;
+	return (0);
+}
+
 int	window(t_data *data)
 {
-	data->x = 0;//
-	data->y = 0;//
+	data->block_size_x = WINDOW_WIDTH / data->map->width;
+	data->block_size_y = WINDOW_HEIGHT / data->map->height;
+	data->x = data->map->start_pos[0] * data->block_size_x;
+	data->y = data->map->start_pos[1] * data->block_size_y;
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
 		return (FALSE);
@@ -215,7 +224,10 @@ int	window(t_data *data)
 	data->img.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.line_len, &data->img.endian);
 	mlx_loop_hook(data->mlx_ptr, &render, data);
+
+	mlx_hook(data->win_ptr, ClientMessage, StructureNotifyMask, &x_button, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
+	
 	
 	mlx_loop(data->mlx_ptr);
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);

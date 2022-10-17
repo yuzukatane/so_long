@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/16 18:09:27 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/17 14:44:14 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ t_map	*create_map(char *filename)
 
 	if (check_map(map) == FALSE)
 		free_and_exit(map, ARRAY, "Map is incorrect");
-	ft_printf("Map OK!\n");////消す
+	map->width++;
+	map->height++;
 	return (map);
 }
 
