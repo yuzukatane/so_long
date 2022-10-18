@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/18 11:53:17 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/18 17:16:02 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,25 +106,37 @@ int	handle_keypress(int keysym, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
 	}
-	else if (keysym == D)
+	else if (keysym == D)/////全部やる
 	{
-		data->x += data->block_size_x;
-		render(data);
+		if (data->map->array[data->y / data->block_size_y][(data->x + data->block_size_x) / data->block_size_x] != WALL)
+		{
+			data->x += data->block_size_x;
+			render(data);
+		}
 	}
 	else if (keysym == A)
 	{
-		data->x -= data->block_size_x;
-		render(data);
+		if (data->map->array[data->y / data->block_size_y][(data->x - data->block_size_x) / data->block_size_x] != WALL)
+		{
+			data->x -= data->block_size_x;
+			render(data);
+		}
 	}
 	else if (keysym == S)
 	{
-		data->y += data->block_size_y;
-		render(data);
+		if (data->map->array[(data->y + data->block_size_y) / data->block_size_y][data->x / data->block_size_x] != WALL)
+		{
+			data->y += data->block_size_y;
+			render(data);
+		}
 	}
 	else if (keysym == W)
 	{
-		data->y -= data->block_size_y;
-		render(data);
+		if (data->map->array[(data->y - data->block_size_y) / data->block_size_y][data->x / data->block_size_x] != WALL)
+		{
+			data->y -= data->block_size_y;
+			render(data);
+		}
 	}
 	return (0);
 }
@@ -276,6 +288,7 @@ int	main(int argc, char *argv[])
 	}
 
 	data.map = create_map(argv[1]);
+	
 	if (window(&data) == FALSE)
 		free_and_exit(data.map, ARRAY, "MLX error");
 	free_and_exit(data.map, ARRAY, NULL);

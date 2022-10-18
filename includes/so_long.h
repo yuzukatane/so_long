@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/17 14:18:55 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:26:00 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define COLLECTIBLE 'C'
 # define EXIT 'E'
 # define START 'P'
-# define PASSED 0
+# define PASSED 'X'
 
 # define TRUE 1
 # define FALSE 0
@@ -89,7 +89,7 @@ typedef struct s_flag
 t_map	*create_map(char *filename);
 
 int		check_map(t_map *map);
-int	is_there_a_valid_path(t_map *map);
+int	is_there_a_valid_path(t_map *map, int x, int y);
 
 void	free_double_ptr(char **double_ptr);
 void	free_and_exit(t_map *map, t_free free_flag, char *msg);

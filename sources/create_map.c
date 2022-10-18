@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/17 14:44:14 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:30:58 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,3 @@ t_map	*create_map(char *filename)
 	map->height++;
 	return (map);
 }
-

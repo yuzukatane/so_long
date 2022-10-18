@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 21:40:55 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/15 16:31:27 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/18 17:07:45 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,50 @@ int	move(t_map *map, char **cpy, int x, int y)
 	return (FALSE);
 }
 
-int	is_there_a_valid_path(t_map *map)
+char	**cpy_map(t_map *map)
 {
-	if (move(map, map->array, map->start_pos[0], map->start_pos[1]) == TRUE)
-		return (TRUE);
-	else
+	char	**cpy;
+	int		height;
+	int		i;
+	
+	height = map->height + 1 + 1;
+	cpy = malloc(height * sizeof(char *));
+	if (cpy == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < height - 1)
+	{
+		cpy[i] = ft_strdup(map->array[i]);
+		if (cpy[i] == NULL)
+		{
+			while (0 <= i)
+			{
+				free(cpy[i]);
+				i--;
+			}
+			free(cpy);
+			return (NULL);
+		}
+	}
+	cpy[i] = NULL;
+	return (cpy);
+}
+
+int	is_there_a_valid_path(t_map *map, int x, int y)
+{
+	char	**cpy;
+
+	cpy = cpy_map(map);
+	if (cpy == NULL)
 		return (FALSE);
+	if (move(map, cpy, x, y) == TRUE)
+	{
+		free_double_ptr(cpy);
+		return (TRUE);
+	}
+	else
+	{
+		free_double_ptr(cpy);
+		return (FALSE);
+	}
 }
