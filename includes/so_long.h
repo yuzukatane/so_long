@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/18 16:26:00 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/18 19:53:03 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_data
 	// int		cur_img;
 	int		x;
 	int		y;
+	int		move_count;
 }	t_data;
 
 typedef struct s_rect

@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:42:08 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/18 17:10:03 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/18 19:44:11 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ int	check_map(t_map *map)
 	if (is_rect_big_enough(map) == FALSE
 		|| is_surrounded(map) == FALSE
 		|| is_good_letter(map) == FALSE
-		|| is_there_a_valid_path(map, map->start_pos[0], map->start_pos[1]) == FALSE)
+		|| is_there_a_valid_path(map, map->start_pos[0], map->start_pos[1]) == FALSE
+		|| map->width == map->height)
 		return (FALSE);
-	ft_printf("map OK\n");
 	return (TRUE);
 }
