@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/17 15:22:27 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/18 11:53:17 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #define WHITE_PIXEL 0xFFFFFF
 #define GRAY_PIXEL 0xcbd0d3
 #define YELLOW_PIXEL 0xe3e548
+
+#define BLUE_PIXEL 0x001e36
 
 //
 #define D 100
@@ -78,7 +80,7 @@ void	render_background(t_img *img)
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			img_pix_put(img, j++, i, GRAY_PIXEL);
+			img_pix_put(img, j++, i, BLUE_PIXEL);
 		}
 		i++;
 	}
@@ -170,6 +172,8 @@ int	handle_keypress(int keysym, t_data *data)
 //
 // 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, back.mlx_img, 0, 0);
 // }
+
+
 
 // int	make_window(void)
 // {
