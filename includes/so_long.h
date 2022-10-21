@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/19 10:28:56 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/21 22:22:27 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ typedef struct s_map
 	int		height;
 	int		width;
 	int		start_pos[2];
-	int		exit_pos[2];
 }	t_map;
 
 typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		window_width;
+	int		window_height;
 	t_img	img;
 	t_map	*map;
 	int		block_size_x;

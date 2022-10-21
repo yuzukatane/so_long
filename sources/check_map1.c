@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:42:08 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/18 19:44:11 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/21 22:22:45 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,7 @@ int	check_letters(t_map *map, t_flag *flag)
 				flag->start_flag++;
 			}
 			else if (map->array[y][x] == EXIT)
-			{
-				map->exit_pos[0] = x;
-				map->exit_pos[1] = y;
 				flag->exit_flag++;
-			}
 			else if (map->array[y][x] == COLLECTIBLE)
 			{
 				if (is_there_a_valid_path(map, x, y) == FALSE)
