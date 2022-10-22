@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/21 22:22:27 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 18:16:28 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define GRAY_PIXEL 0xE1E1E1
 # define EMPTY '0'
 # define WALL '1'
 # define COLLECTIBLE 'C'
@@ -29,8 +30,18 @@
 # define START 'P'
 # define PASSED 'X'
 
+# define D 100
+# define A 97
+# define W 119
+# define S 115
+
 # define TRUE 1
 # define FALSE 0
+
+# define P_PATH "./images/crab.xpm"
+# define W_PATH "./images/rock.xpm"
+# define C_PATH "./images/shell.xpm"
+# define E_PATH "./images/home.xpm"
 
 typedef enum e_free
 {
@@ -62,26 +73,20 @@ typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	int		window_width;
-	int		window_height;
-	t_img	img;
+	t_img	player;
+	t_img	wall;
+	t_img	collectible;
+	t_img	_exit;
+	t_img	empty;
 	t_map	*map;
 	int		block_size_x;
 	int		block_size_y;
-	// int		cur_img;
 	int		x;
 	int		y;
 	int		move_count;
+	int		window_width;
+	int		window_height;
 }	t_data;
-
-typedef struct s_rect
-{
-	int	x;
-	int	y;
-	int width;
-	int height;
-	int color;
-}	t_rect;
 
 typedef struct s_flag
 {
@@ -93,10 +98,13 @@ typedef struct s_flag
 t_map	*create_map(char *filename);
 
 int		check_map(t_map *map);
-int	is_there_a_valid_path(t_map *map, int x, int y);
+int		is_there_a_valid_path(t_map *map, int x, int y);
+
+int	make_background(t_data *data);
+
+int	destroy_window(t_data *data);
 
 void	free_double_ptr(char **double_ptr);
 void	free_and_exit(t_map *map, t_free free_flag, char *msg);
-
 
 #endif
