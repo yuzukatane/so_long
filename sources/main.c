@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 19:05:43 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 22:10:22 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	init_data(t_data *data)
 {
-	data->block_size_x = 70;
-	data->block_size_y = 70;
-	data->window_width = data->map->width * data->block_size_x;
-	data->window_height = data->map->height * data->block_size_y;
+	data->bsize = 70;
+	data->window_width = data->map->width * data->bsize;
+	data->window_height = data->map->height * data->bsize;
 	data->move_count = 0;
-	data->x = data->map->start_pos[0] * data->block_size_x;
-	data->y = data->map->start_pos[1] * data->block_size_y;
+	data->x = data->map->start_pos[0] * data->bsize;
+	data->y = data->map->start_pos[1] * data->bsize;
 }
 
 int	main(int argc, char *argv[])

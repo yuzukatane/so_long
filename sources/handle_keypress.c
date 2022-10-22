@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:45:42 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 18:52:33 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 22:11:48 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,60 @@
 
 void	d(t_data *data)
 {
-	if (data->map->array[data->y / data->block_size_y]
-		[(data->x + data->block_size_x) / data->block_size_x] != WALL)
+	if (data->map->array[data->y / data->bsize]
+		[(data->x + data->bsize) / data->bsize] != WALL)
 	{
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 			data->empty.mlx_img, data->x, data->y);
-		data->x += data->block_size_x;
+		data->x += data->bsize;
 		ft_printf("%d\n", ++data->move_count);
-		if (data->map->array[data->y / data->block_size_y]
-			[data->x / data->block_size_x] == EXIT)
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
 			destroy_window(data);
 	}
 }
 
 void	a(t_data *data)
 {
-	if (data->map->array[data->y / data->block_size_y]
-		[(data->x - data->block_size_x) / data->block_size_x] != WALL)
+	if (data->map->array[data->y / data->bsize]
+		[(data->x - data->bsize) / data->bsize] != WALL)
 	{
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 			data->empty.mlx_img, data->x, data->y);
-		data->x -= data->block_size_x;
+		data->x -= data->bsize;
 		ft_printf("%d\n", ++data->move_count);
-		if (data->map->array[data->y / data->block_size_y]
-			[data->x / data->block_size_x] == EXIT)
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
 			destroy_window(data);
 	}
 }
 
 void	s(t_data *data)
 {
-	if (data->map->array[(data->y + data->block_size_y) / data->block_size_y]
-		[data->x / data->block_size_x] != WALL)
+	if (data->map->array[(data->y + data->bsize) / data->bsize]
+		[data->x / data->bsize] != WALL)
 	{
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 			data->empty.mlx_img, data->x, data->y);
-		data->y += data->block_size_y;
+		data->y += data->bsize;
 		ft_printf("%d\n", ++data->move_count);
-		if (data->map->array[data->y / data->block_size_y]
-			[data->x / data->block_size_x] == EXIT)
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
 			destroy_window(data);
 	}
 }
 
 void	w(t_data *data)
 {
-	if (data->map->array[(data->y - data->block_size_y) / data->block_size_y]
-		[data->x / data->block_size_x] != WALL)
+	if (data->map->array[(data->y - data->bsize) / data->bsize]
+		[data->x / data->bsize] != WALL)
 	{
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 			data->empty.mlx_img, data->x, data->y);
-		data->y -= data->block_size_y;
+		data->y -= data->bsize;
 		ft_printf("%d\n", ++data->move_count);
-		if (data->map->array[data->y / data->block_size_y]
-			[data->x / data->block_size_x] == EXIT)
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
 			destroy_window(data);
 	}
 }

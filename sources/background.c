@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 15:46:28 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 19:19:31 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 22:22:26 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	render_rect(t_data *data, t_img *img)
 	int	x;
 
 	y = 0;
-	while (y < data->block_size_y)
+	while (y < data->bsize)
 	{
 		x = 0;
-		while (x < data->block_size_x)
+		while (x < data->bsize)
 		{
 			img_pix_put(img, x, y, GRAY_PIXEL);
 			x++;
@@ -46,6 +46,15 @@ int	render_rect(t_data *data, t_img *img)
 		y++;
 	}
 	return (0);
+}
+
+void	make_rect(t_data *data)
+{
+	data->empty.mlx_img = mlx_new_image(data->mlx_ptr,
+			data->bsize, data->bsize);
+	data->empty.addr = mlx_get_data_addr(data->empty.mlx_img, &data->empty.bpp,
+			&data->empty.line_len, &data->empty.endian);
+	render_rect(data, &data->empty);
 }
 
 int	make_images(t_data *data)
@@ -67,11 +76,7 @@ int	make_images(t_data *data)
 			&data->_exit.width, &data->_exit.height);
 	data->_exit.addr = mlx_get_data_addr(data->_exit.mlx_img, &data->_exit.bpp,
 			&data->_exit.line_len, &data->_exit.endian);
-	data->empty.mlx_img = mlx_new_image(data->mlx_ptr,
-			data->block_size_x, data->block_size_y);
-	data->empty.addr = mlx_get_data_addr(data->empty.mlx_img, &data->empty.bpp,
-			&data->empty.line_len, &data->empty.endian);
-	render_rect(data, &data->empty);
+	make_rect(data);
 	if (data->player.mlx_img == NULL || data->wall.mlx_img == NULL
 		|| data->collectible.mlx_img == NULL || data->_exit.mlx_img == NULL
 		|| data->empty.mlx_img == NULL)
@@ -82,7 +87,7 @@ int	make_images(t_data *data)
 int	make_background(t_data *data)
 {
 	int		x;
-	int		y;	
+	int		y;
 
 	if (make_images(data) == FALSE)
 		return (FALSE);
@@ -94,20 +99,16 @@ int	make_background(t_data *data)
 		{
 			if (data->map->array[y][x] == WALL)
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->wall.mlx_img, x * data->block_size_x,
-					y * data->block_size_y);
+					data->wall.mlx_img, x * data->bsize, y * data->bsize);
 			else if (data->map->array[y][x] == COLLECTIBLE)
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->collectible.mlx_img, x * data->block_size_x,
-					y * data->block_size_y);
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->\
+					collectible.mlx_img, x * data->bsize, y * data->bsize);
 			else if (data->map->array[y][x] == EXIT)
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->_exit.mlx_img, x * data->block_size_x,
-					y * data->block_size_y);
+					data->_exit.mlx_img, x * data->bsize, y * data->bsize);
 			else
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->empty.mlx_img, x * data->block_size_x,
-					y * data->block_size_y);
+					data->empty.mlx_img, x * data->bsize, y * data->bsize);
 		}
 	}
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:42:08 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 19:12:34 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 22:13:28 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_rect_big_enough(t_map *map)
 	while (map->array[y + 1] != NULL)
 	{
 		y++;
-		if (x != ft_strlen(map->array[y]))
+		if (x != (int)ft_strlen(map->array[y]))
 			return (FALSE);
 	}
 	map->height = y;
@@ -93,8 +93,6 @@ int	check_letters(t_map *map, t_flag *flag)
 
 int	is_good_letter(t_map *map)
 {
-	int		x;
-	int		y;
 	t_flag	flag;
 
 	flag = (t_flag){.start_flag = 0, .exit_flag = 0, .collective_flag = 0};
