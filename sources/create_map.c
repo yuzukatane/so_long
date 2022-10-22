@@ -6,19 +6,20 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/18 19:43:16 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 19:09:21 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-char	*read_map(t_map *map, int fd, char *filename)
+char	*read_map(t_map *map, int fd)
 {
 	char	buf[128];
-	char	*one_line_map = "\0";
+	char	*one_line_map;
 	int		size;
 
 	ft_bzero(buf, 128);
+	one_line_map = "\0";
 	while (1)
 	{
 		size = read(fd, buf, 127);
@@ -28,12 +29,10 @@ char	*read_map(t_map *map, int fd, char *filename)
 			free_and_exit(map, MAP_PTR, "Failed to read the file");
 		}
 		one_line_map = ft_strjoin(one_line_map, buf);
-
 		if (size < 127)
 			break ;
 		else
 			ft_bzero(buf, 128);
-	
 	}
 	close(fd);
 	return (one_line_map);
@@ -55,6 +54,7 @@ t_map	*create_map(char *filename)
 	int		fd;
 	char	*one_line_map;
 
+	map = NULL;
 	if (check_fileformat(filename) == FALSE)
 		free_and_exit(map, NOTHING, "File format is incorrect");
 	map = malloc(sizeof(t_map));
@@ -63,12 +63,11 @@ t_map	*create_map(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		free_and_exit(map, MAP_PTR, "Failed to open the file");
-	one_line_map = read_map(map, fd, filename);
+	one_line_map = read_map(map, fd);
 	map->array = ft_split(one_line_map, '\n');
 	free(one_line_map);
 	if (map->array == NULL)
 		free_and_exit(map, MAP_PTR, "Failed to allocate memory");
-
 	if (check_map(map) == FALSE)
 		free_and_exit(map, ARRAY, "Map is incorrect");
 	map->width++;

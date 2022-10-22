@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:42:08 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/21 22:22:45 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 19:12:34 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	is_good_letter(t_map *map)
 	t_flag	flag;
 
 	flag = (t_flag){.start_flag = 0, .exit_flag = 0, .collective_flag = 0};
-	
 	if (check_letters(map, &flag) == FALSE)
 		return (FALSE);
 	if (flag.start_flag != 1
@@ -113,7 +112,8 @@ int	check_map(t_map *map)
 	if (is_rect_big_enough(map) == FALSE
 		|| is_surrounded(map) == FALSE
 		|| is_good_letter(map) == FALSE
-		|| is_there_a_valid_path(map, map->start_pos[0], map->start_pos[1]) == FALSE
+		|| is_there_a_valid_path
+		(map, map->start_pos[0], map->start_pos[1]) == FALSE
 		|| map->width == map->height)
 		return (FALSE);
 	return (TRUE);

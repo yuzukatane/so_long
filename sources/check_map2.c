@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 21:40:55 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/18 17:07:45 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/22 19:13:43 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**cpy_map(t_map *map)
 	char	**cpy;
 	int		height;
 	int		i;
-	
+
 	height = map->height + 1 + 1;
 	cpy = malloc(height * sizeof(char *));
 	if (cpy == NULL)
