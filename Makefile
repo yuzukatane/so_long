@@ -8,7 +8,7 @@ X11_PATH = /usr/X11/include/../lib
 INCLUDES = -I includes -I/usr/X11/include
 LIBS_PATH = -L$(LIBFT_PATH) -L$(MLX_PATH) -L$(X11_PATH)
 LIBS = -lft -lmlx_Darwin -lXext -lX11 -framework OpenGL -framework AppKit
-FILES = main.c create_map.c check_map1.c check_map2.c free.c background.c handle_keypress.c make_window.c
+FILES = main.c create_map.c check_map1.c check_map2.c check_map3.c free.c background1.c background2.c handle_keypress.c make_window.c
 SRCS = $(addprefix sources/,$(FILES))
 OBJS = $(SRCS:.c=.o)
 

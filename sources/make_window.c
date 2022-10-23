@@ -6,20 +6,11 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:02:45 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 19:05:02 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/23 11:39:17 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-int	render(t_data *data)
-{
-	if (data->win_ptr == NULL)
-		return (1);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-		data->player.mlx_img, data->x, data->y);
-	return (0);
-}
 
 int	destroy_window(t_data *data)
 {
@@ -35,6 +26,15 @@ void	destroy_images(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->collectible.mlx_img);
 	mlx_destroy_image(data->mlx_ptr, data->_exit.mlx_img);
 	mlx_destroy_image(data->mlx_ptr, data->empty.mlx_img);
+}
+
+int	render(t_data *data)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		data->player.mlx_img, data->x, data->y);
+	return (0);
 }
 
 void	loop(t_data *data)

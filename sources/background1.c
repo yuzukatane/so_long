@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   background.c                                       :+:      :+:    :+:   */
+/*   background1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 15:46:28 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 22:22:26 by kyuzu            ###   ########.fr       */
+/*   Created: 2022/10/23 11:00:14 by kyuzu             #+#    #+#             */
+/*   Updated: 2022/10/23 11:03:08 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,35 +81,5 @@ int	make_images(t_data *data)
 		|| data->collectible.mlx_img == NULL || data->_exit.mlx_img == NULL
 		|| data->empty.mlx_img == NULL)
 		return (FALSE);
-	return (TRUE);
-}
-
-int	make_background(t_data *data)
-{
-	int		x;
-	int		y;
-
-	if (make_images(data) == FALSE)
-		return (FALSE);
-	y = -1;
-	while (++y < data->map->height)
-	{
-		x = -1;
-		while (++x < data->map->width)
-		{
-			if (data->map->array[y][x] == WALL)
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->wall.mlx_img, x * data->bsize, y * data->bsize);
-			else if (data->map->array[y][x] == COLLECTIBLE)
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->\
-					collectible.mlx_img, x * data->bsize, y * data->bsize);
-			else if (data->map->array[y][x] == EXIT)
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->_exit.mlx_img, x * data->bsize, y * data->bsize);
-			else
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->empty.mlx_img, x * data->bsize, y * data->bsize);
-		}
-	}
 	return (TRUE);
 }

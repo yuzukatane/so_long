@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:42:08 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 22:13:28 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/23 11:05:46 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,8 @@ int	is_surrounded(t_map *map)
 	return (TRUE);
 }
 
-int	check_letters(t_map *map, t_flag *flag)
+int	check_letters(t_map *map, t_flag *flag, int x, int y)
 {
-	int	x;
-	int	y;
-
-	y = -1;
 	while (++y <= map->height)
 	{
 		x = -1;
@@ -94,9 +90,13 @@ int	check_letters(t_map *map, t_flag *flag)
 int	is_good_letter(t_map *map)
 {
 	t_flag	flag;
+	int		x;
+	int		y;
 
 	flag = (t_flag){.start_flag = 0, .exit_flag = 0, .collective_flag = 0};
-	if (check_letters(map, &flag) == FALSE)
+	x = -1;
+	y = -1;
+	if (check_letters(map, &flag, x, y) == FALSE)
 		return (FALSE);
 	if (flag.start_flag != 1
 		|| flag.exit_flag != 1

@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/22 22:12:03 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/10/23 11:38:21 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,13 @@ typedef struct s_flag
 }	t_flag;
 
 t_map	*create_map(char *filename);
-
 int		check_map(t_map *map);
 int		is_there_a_valid_path(t_map *map, int x, int y);
+int		move(t_map *map, char **cpy, int x, int y);
+int		make_background(t_data *data);
 
-int	make_background(t_data *data);
+
+int	make_images(t_data *data);
 
 int	destroy_window(t_data *data);
 
