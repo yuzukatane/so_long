@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/23 12:06:39 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/11/30 15:07:33 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_data
 	t_img	empty;
 	t_map	*map;
 	int		bsize;
+	int		c_num;
+	int		c_taken;
 	int		x;
 	int		y;
 	int		move_count;

@@ -6,11 +6,33 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/23 11:44:58 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/11/30 15:35:14 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int	count_c(char **array)
+{
+	int	c_num;
+	int	i;
+	int	j;
+
+	c_num = 0;
+	i = 0;
+	while (array[i] != NULL)
+	{
+		j = 0;
+		while (array[i][j] != '\0')
+		{
+			if (array[i][j] == COLLECTIBLE)
+				c_num++;
+			j++;
+		}
+		i++;
+	}
+	return (c_num);
+}
 
 void	init_data(t_data *data)
 {
@@ -20,6 +42,8 @@ void	init_data(t_data *data)
 	data->move_count = 0;
 	data->x = data->map->start_pos[0] * data->bsize;
 	data->y = data->map->start_pos[1] * data->bsize;
+	data->c_num = count_c(data->map->array);
+	data->c_taken = 0;
 }
 
 int	main(int argc, char *argv[])

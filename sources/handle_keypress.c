@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:45:42 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/23 11:40:31 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/11/30 15:42:22 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,24 @@ void	d(t_data *data)
 	if (data->map->array[data->y / data->bsize]
 		[(data->x + data->bsize) / data->bsize] != WALL)
 	{
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->empty.mlx_img, data->x, data->y);
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->_exit.mlx_img, data->x, data->y);
+		else
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->empty.mlx_img, data->x, data->y);
 		data->x += data->bsize;
 		ft_printf("%d\n", ++data->move_count);
 		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == COLLECTIBLE)
+				data->c_taken++;
+		else if (data->map->array[data->y / data->bsize]
 			[data->x / data->bsize] == EXIT)
-			destroy_window(data);
+		{
+			if (data->c_taken == data->c_num)
+				destroy_window(data);
+		}
 	}
 }
 
@@ -32,13 +43,24 @@ void	a(t_data *data)
 	if (data->map->array[data->y / data->bsize]
 		[(data->x - data->bsize) / data->bsize] != WALL)
 	{
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->empty.mlx_img, data->x, data->y);
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->_exit.mlx_img, data->x, data->y);
+		else
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->empty.mlx_img, data->x, data->y);
 		data->x -= data->bsize;
 		ft_printf("%d\n", ++data->move_count);
 		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == COLLECTIBLE)
+				data->c_taken++;
+		else if (data->map->array[data->y / data->bsize]
 			[data->x / data->bsize] == EXIT)
-			destroy_window(data);
+		{
+			if (data->c_taken == data->c_num)
+				destroy_window(data);
+		}
 	}
 }
 
@@ -47,13 +69,24 @@ void	s(t_data *data)
 	if (data->map->array[(data->y + data->bsize) / data->bsize]
 		[data->x / data->bsize] != WALL)
 	{
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->empty.mlx_img, data->x, data->y);
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->_exit.mlx_img, data->x, data->y);
+		else
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->empty.mlx_img, data->x, data->y);
 		data->y += data->bsize;
 		ft_printf("%d\n", ++data->move_count);
 		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == COLLECTIBLE)
+				data->c_taken++;
+		else if (data->map->array[data->y / data->bsize]
 			[data->x / data->bsize] == EXIT)
-			destroy_window(data);
+		{
+			if (data->c_taken == data->c_num)
+				destroy_window(data);
+		}
 	}
 }
 
@@ -62,13 +95,24 @@ void	w(t_data *data)
 	if (data->map->array[(data->y - data->bsize) / data->bsize]
 		[data->x / data->bsize] != WALL)
 	{
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->empty.mlx_img, data->x, data->y);
+		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == EXIT)
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->_exit.mlx_img, data->x, data->y);
+		else
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+				data->empty.mlx_img, data->x, data->y);
 		data->y -= data->bsize;
 		ft_printf("%d\n", ++data->move_count);
 		if (data->map->array[data->y / data->bsize]
+			[data->x / data->bsize] == COLLECTIBLE)
+				data->c_taken++;
+		else if (data->map->array[data->y / data->bsize]
 			[data->x / data->bsize] == EXIT)
-			destroy_window(data);
+		{
+			if (data->c_taken == data->c_num)
+				destroy_window(data);
+		}
 	}
 }
 
