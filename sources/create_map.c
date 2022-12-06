@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/10/23 11:30:52 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 20:19:12 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*read_map(t_map *map, int fd)
 		if (size == -1)
 		{
 			free(one_line_map);
-			free_and_exit(map, MAP_PTR, "Failed to read the file");
+			free_and_exit(map, MAP_PTR, "Error\nFailed to read the file\n");
 		}
 		one_line_map = ft_strjoin(one_line_map, buf);
 		if (size < 127)
@@ -56,20 +56,20 @@ t_map	*create_map(char *filename)
 
 	map = NULL;
 	if (check_fileformat(filename) == FALSE)
-		free_and_exit(map, NOTHING, "File format is incorrect");
+		free_and_exit(map, NOTHING, "Error\nFile format is incorrect\n");
 	map = malloc(sizeof(t_map));
 	if (map == NULL)
-		free_and_exit(map, NOTHING, "Failed to allocate memory");
+		free_and_exit(map, NOTHING, "Error\nFailed to allocate memory\n");
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		free_and_exit(map, MAP_PTR, "Failed to open the file");
+		free_and_exit(map, MAP_PTR, "Error\nFailed to open the file\n");
 	one_line_map = read_map(map, fd);
 	map->array = ft_split(one_line_map, '\n');
 	free(one_line_map);
 	if (map->array == NULL)
-		free_and_exit(map, MAP_PTR, "Failed to allocate memory");
+		free_and_exit(map, MAP_PTR, "Error\nFailed to allocate memory\n");
 	if (check_map(map) == FALSE)
-		free_and_exit(map, ARRAY, "Map is incorrect");
+		free_and_exit(map, ARRAY, "Error\nMap is incorrect\n");
 	map->width++;
 	map->height++;
 	return (map);

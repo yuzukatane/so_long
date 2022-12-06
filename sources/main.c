@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/12/06 12:20:09 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 20:14:03 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		ft_printf("The program need A map\n");
+		ft_printf("Error\nThe program need A map\n");
 		return (0);
 	}
 	data.map = create_map(argv[1]);
 	init_data(&data);
 	if (make_window(&data) == FALSE)
-		free_and_exit(data.map, ARRAY, "MLX error");
+		free_and_exit(data.map, ARRAY, "Error\nA MLX error has occured\n");
 	free_and_exit(data.map, ARRAY, NULL);
 	return (0);
 }
