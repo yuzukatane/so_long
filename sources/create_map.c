@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/12/06 21:19:16 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 22:13:32 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	check_empty_line(char *one_line_map)
 			if (one_line_map[i] != '\0')
 				return (FALSE);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (TRUE);
 }

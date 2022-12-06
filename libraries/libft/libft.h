@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:45:23 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/09/19 13:57:28 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 22:13:58 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <stdarg.h>
 # include <unistd.h>
+# include <stdint.h>
 
 typedef struct s_list
 {
