@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/12/06 12:23:44 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 21:40:02 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ int		is_there_a_valid_path(t_map *map, int x, int y);
 int		move(t_map *map, char **cpy, int x, int y);
 int		make_background(t_data *data);
 
-int	destroy_window(t_data *data);
+int		destroy_window(t_data *data);
 
-int	handle_keypress(int keysym, t_data *data);
-int	make_window(t_data *data);
+int		handle_keypress(int keysym, t_data *data);
+int		make_window(t_data *data);
 
 void	free_double_ptr(char **double_ptr);
 void	free_and_exit(t_map *map, t_free free_flag, char *msg);
