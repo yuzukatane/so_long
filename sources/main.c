@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:58:19 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/11/30 15:47:12 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 12:20:09 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		ft_printf("The program need a map\n");
+		ft_printf("The program need A map\n");
 		return (0);
 	}
 	data.map = create_map(argv[1]);

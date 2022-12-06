@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/12/06 12:05:58 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 12:23:44 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-# define GRAY_PIXEL 0xE1E1E1
 # define EMPTY '0'
 # define WALL '1'
 # define COLLECTIBLE 'C'
@@ -102,9 +101,6 @@ int		check_map(t_map *map);
 int		is_there_a_valid_path(t_map *map, int x, int y);
 int		move(t_map *map, char **cpy, int x, int y);
 int		make_background(t_data *data);
-
-
-int	make_images(t_data *data);
 
 int	destroy_window(t_data *data);
 
