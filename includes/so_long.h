@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:33:40 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/11/30 15:07:33 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/06 12:05:58 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define W_PATH "./images/rock.xpm"
 # define C_PATH "./images/shell.xpm"
 # define E_PATH "./images/home.xpm"
+# define EMP_PATH "./images/empty.xpm"
 
 typedef enum e_free
 {
