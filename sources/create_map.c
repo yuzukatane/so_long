@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/12/06 22:13:32 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/10 17:31:52 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	check_fileformat(char *filename)
 	int	len;
 
 	len = ft_strlen(filename);
-	if (len < 5 || ft_strncmp(&filename[len - 4], ".ber", 4) != 0)
+	if (len < 5 || ft_strncmp(&filename[len - 4], ".ber", 4) != 0
+		|| ft_strncmp(&filename[len - 5], "/.ber", 5) == 0)
 		return (FALSE);
 	return (TRUE);
 }
@@ -91,8 +92,8 @@ t_map	*create_map(char *filename)
 	}
 	map->array = ft_split(one_line_map, '\n');
 	free(one_line_map);
-	if (map->array == NULL)
-		free_and_exit(map, MAP_PTR, "Error\nFailed to allocate memory\n");
+	if (map->array == NULL || *map->array == NULL)
+		free_and_exit(map, MAP_PTR, "Error\nMap is incorrect\n");
 	if (check_map(map) == FALSE)
 		free_and_exit(map, ARRAY, "Error\nMap is incorrect\n");
 	map->width++;
