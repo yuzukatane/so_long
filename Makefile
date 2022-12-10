@@ -6,7 +6,7 @@
 #    By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 12:06:24 by pfrances          #+#    #+#              #
-#    Updated: 2022/12/06 21:29:12 by kyuzu            ###   ########.fr        #
+#    Updated: 2022/12/10 17:44:38 by kyuzu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,23 +38,9 @@ INCLUDES = -I includes
 OS = $(shell uname -s)
 
 ifeq ($(OS),Linux)
-# ESC = ESC=65307
-# W = W=119
-# A = A=97
-# S = S=115
-# D = D=100
-# FRAMERATE = FRAMERATE=1000
-# ADJUST = ADJUST=0
 MLX = $(MLX_DIR)/libmlx.a
 MLX_LIBS = -I $(MLX_DIR) -L $(MLX_DIR) -lmlx -lXext -lX11 $(MLX)
 else
-# ESC = ESC=53
-# W = W=13
-# A = A=0
-# S = S=1
-# D = D=2
-# FRAMERATE = FRAMERATE=200
-# ADJUST = ADJUST=20
 MLX = $(MLX_DIR)/libmlx_Darwin.a
 INCLUDES += -I/usr/X11/include
 MLX_LIBS = -L$(MLX_DIR) -L/usr/X11/include/../lib -lmlx_Darwin -lXext -lX11 -framework OpenGL -framework AppKit

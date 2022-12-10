@@ -6,7 +6,7 @@
 /*   By: kyuzu <kyuzu@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:15:13 by kyuzu             #+#    #+#             */
-/*   Updated: 2022/12/10 17:31:52 by kyuzu            ###   ########.fr       */
+/*   Updated: 2022/12/10 17:47:02 by kyuzu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ t_map	*create_map(char *filename)
 	}
 	map->array = ft_split(one_line_map, '\n');
 	free(one_line_map);
-	if (map->array == NULL || *map->array == NULL)
-		free_and_exit(map, MAP_PTR, "Error\nMap is incorrect\n");
-	if (check_map(map) == FALSE)
+	if (map->array == NULL)
+		free_and_exit(map, MAP_PTR, "Error\nFailed to allocate memory\n");
+	if (*map->array == NULL || check_map(map) == FALSE)
 		free_and_exit(map, ARRAY, "Error\nMap is incorrect\n");
 	map->width++;
 	map->height++;
